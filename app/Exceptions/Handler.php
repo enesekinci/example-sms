@@ -16,20 +16,12 @@ use function errorResponse;
 
 class Handler extends ExceptionHandler
 {
-    /**
-     * The list of the inputs that are never flashed to the session on validation exceptions.
-     *
-     * @var array<int, string>
-     */
     protected $dontFlash = [
         'current_password',
         'password',
         'password_confirmation',
     ];
 
-    /**
-     * Register the exception handling callbacks for the application.
-     */
     public function register(): void
     {
         $this->reportable(function (Throwable $e) {
@@ -37,20 +29,20 @@ class Handler extends ExceptionHandler
         });
     }
 
-    public function render($request, Throwable $exception): Response|JsonResponse|RedirectResponse|\Symfony\Component\HttpFoundation\Response
+    public function render($request, Throwable $e): Response|JsonResponse|RedirectResponse|\Symfony\Component\HttpFoundation\Response
     {
-        if ($exception instanceof ModelNotFoundException) {
+        if ($e instanceof ModelNotFoundException) {
             return errorResponse(RM::NOT_FOUND, HttpCode::NOT_FOUND);
         }
 
-        if ($exception instanceof NotFoundHttpException) {
+        if ($e instanceof NotFoundHttpException) {
             return errorResponse(RM::NOT_FOUND, HttpCode::NOT_FOUND);
         }
 
-        if ($exception instanceof MethodNotAllowedHttpException) {
+        if ($e instanceof MethodNotAllowedHttpException) {
             return errorResponse(RM::METHOD_NOT_ALLOWED, HttpCode::METHOD_NOT_ALLOWED);
         }
 
-        return parent::render($request, $exception);
+        return parent::render($request, $e);
     }
 }
