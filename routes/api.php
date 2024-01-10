@@ -28,8 +28,7 @@ Route::middleware([JwtHandler::class, JwtVerify::class, JwtAccessToken::class])-
         Route::prefix('sms')->group(function () {
             Route::post('send', SendController::class);
             Route::get('report', ReportController::class);
-            Route::get('report/{id}', ReportDetailController::class);
-
+            Route::get('report/{sms}', ReportDetailController::class);
         });
     });
 
