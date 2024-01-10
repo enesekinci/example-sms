@@ -16,14 +16,22 @@ final class JwtManager
     {
     }
 
+    public static function __callStatic($name, $arguments)
+    {
+        return JwtManager::getInstance()->$name(...$arguments);
+    }
+
     public static function getInstance(): JwtManager
     {
         return JwtManager::$instance ??= new JwtManager;
     }
 
-    public static function __callStatic($name, $arguments)
+    /**
+     * @throws Exception
+     */
+    public static function generateAccessToken(string $email): string
     {
-        return JwtManager::getInstance()->$name(...$arguments);
+        return self::generateToken($email, JwtType::access);
     }
 
     /**
@@ -46,14 +54,6 @@ final class JwtManager
         ];
 
         return JWT::encode($payload, env('JWT_KEY'), env('JWT_ALGORITHM'));
-    }
-
-    /**
-     * @throws Exception
-     */
-    public static function generateAccessToken(string $email): string
-    {
-        return self::generateToken($email, JwtType::access);
     }
 
     /**

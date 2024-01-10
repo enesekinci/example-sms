@@ -8,6 +8,9 @@ use App\Enums\ResponseMessage as RM;
 use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Throwable;
+use function errorResponse;
+use function writeToLog;
 
 class JwtHandler
 {
@@ -15,12 +18,18 @@ class JwtHandler
     {
         try {
             $header = $request->header('Authorization');
-            \writeToLog(['header' => $header]);
+
+            writeToLog(['header' => $header]);
+
             $token = explode(' ', $header)[1];
+
             JwtToken::set($token);
-        } catch (\Throwable $th) {
+
+        } catch (Throwable $th) {
+
             writeToLog($th);
-            return \errorResponse(RM::TOKEN_IS_INVALID, HttpCode::UNAUTHORIZED);
+
+            return errorResponse(RM::TOKEN_IS_INVALID, HttpCode::UNAUTHORIZED);
         }
 
         return $next($request);

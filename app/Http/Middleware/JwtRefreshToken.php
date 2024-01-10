@@ -15,7 +15,7 @@ class JwtRefreshToken
     public function handle(Request $request, Closure $next): Response
     {
         if (JwtToken::getType() != JwtType::refresh) {
-            return errorResponse(RM::TOKEN_MUST_BE_REFRESH, HttpCode::BAD_REQUEST);
+            return errorResponse(RM::TOKEN_MUST_BE_REFRESH);
         }
 
         return $next($request);

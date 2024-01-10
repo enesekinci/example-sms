@@ -9,6 +9,7 @@ class ReportRequest extends FormRequest
 {
     use ValidationHandlerTrait;
 
+
     public function authorize(): bool
     {
         return true;
@@ -17,6 +18,7 @@ class ReportRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'date' => 'nullable|date_format:Y-m-d'
         ];
     }
 
