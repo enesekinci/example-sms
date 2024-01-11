@@ -26,8 +26,6 @@ enum JwtType: string
         return $this->value;
     }
 
-    // fromString
-
     public function getExp(): int
     {
         return match ($this) {
