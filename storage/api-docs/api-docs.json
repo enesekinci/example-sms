@@ -1,44 +1,113 @@
 {
     "openapi": "3.0.0",
     "info": {
-        "title": "Example for response examples value",
+        "title": "SMS API",
         "version": "1.0"
     },
     "paths": {
         "/api": {},
-        "/users/{id}": {
-            "put": {
+        "/auth/token/generate/refresh-token": {
+            "post": {
                 "tags": [
-                    "Users"
+                    "Auth"
                 ],
-                "summary": "Updates a user",
-                "operationId": "19712056683f3620b0237ca6d3b7b54d",
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "description": "Parameter with mutliple examples",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
-                        },
-                        "examples": {
-                            "int": {
-                                "summary": "An int value.",
-                                "value": "1"
-                            },
-                            "uuid": {
-                                "summary": "An UUID value.",
-                                "value": "0006faf6-7a61-426c-9034-579f2cfcfa83"
+                "summary": "Refresh token",
+                "description": "RefreshToken",
+                "operationId": "refreshToken",
+                "requestBody": {
+                    "description": "Refresh token",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "email",
+                                    "password"
+                                ],
+                                "properties": {
+                                    "email": {
+                                        "type": "string",
+                                        "example": "test@test.com"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "example": "password"
+                                    }
+                                },
+                                "type": "object"
                             }
                         }
                     }
-                ],
+                },
                 "responses": {
                     "200": {
-                        "description": "OK"
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "type": {
+                                            "type": "string",
+                                            "example": "refresh"
+                                        },
+                                        "token": {
+                                            "type": "string",
+                                            "example": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9"
+                                        },
+                                        "user": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "User is not authorized"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "The given data was invalid."
+                                        },
+                                        "errors": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
             }
         }
     }
