@@ -53,7 +53,7 @@ final class JwtManager
             'email' => $email,
         ];
 
-        return JWT::encode($payload, env('JWT_KEY'), env('JWT_ALGORITHM'));
+        return JWT::encode($payload, env('JWT_SECRET'), env('JWT_ALGORITHM'));
     }
 
     /**
@@ -66,6 +66,6 @@ final class JwtManager
 
     public static function decodeToken(string $token): stdClass
     {
-        return JWT::decode($token, new Key(env('JWT_KEY'), env('JWT_ALGORITHM')));
+        return JWT::decode($token, new Key(env('JWT_SECRET'), env('JWT_ALGORITHM')));
     }
 }

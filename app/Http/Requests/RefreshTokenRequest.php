@@ -18,7 +18,7 @@ class RefreshTokenRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'email' => 'required|email,exists:users,email',
+            'email' => 'required|email|exists:users,email',
             'password' => 'required|min:6',
         ];
     }
@@ -29,6 +29,7 @@ class RefreshTokenRequest extends FormRequest
             'email.required' => RM::REQUIRED,
             'email.email' => RM::EMAIL,
             'email.exists' => RM::NOT_EXISTS,
+
             'password.required' => RM::REQUIRED,
             'password.min' => RM::LENGTH,
         ];

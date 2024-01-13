@@ -3,7 +3,19 @@
 namespace App\Enums;
 
 use Exception;
+use OpenApi\Annotations as OA;
 
+/**
+ * @OA\Schema(
+ *     schema="SmsStatus",
+ *     title="SmsStatus",
+ *     description="Sms status",
+ *     @OA\Property(property="WAITING", type="integer", example=0),
+ *     @OA\Property(property="SENT", type="integer", example=1),
+ *     @OA\Property(property="FAILED", type="integer", example=2),
+    * ),
+ *
+ */
 enum SmsStatus: int
 {
     case WAITING = 0;

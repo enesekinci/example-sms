@@ -20,7 +20,7 @@ class JwtVerify
     {
         try {
 
-            $content = JWT::decode(JwtToken::get(), new Key(env('JWT_KEY'), env('JWT_ALGORITHM')));
+            $content = JWT::decode(JwtToken::get(), new Key(env('JWT_SECRET'), env('JWT_ALGORITHM')));
 
             JwtToken::setContent($content);
 
