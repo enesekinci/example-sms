@@ -1,6 +1,6 @@
 #!/bin/bash
 
-docker-compose exec app cp .env.example .env
+cp .env.example .env
 
 source .env
 
