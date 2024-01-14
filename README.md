@@ -1,5 +1,10 @@
 # Example SMS Restful API
 
+## Install
+```bash 
+    cd /path/to/example-sms && ./install
+```
+
 ## Response Codes
 
 | Code | Description           |
