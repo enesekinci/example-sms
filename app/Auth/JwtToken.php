@@ -20,6 +20,9 @@ final class JwtToken
         return self::$token;
     }
 
+    /**
+     * @throws \Exception
+     */
     public static function setType(string $type): void
     {
         $type = JwtType::fromString($type);
@@ -32,7 +35,7 @@ final class JwtToken
         return self::$type;
     }
 
-    public static function setContent(array|object $content)
+    public static function setContent(array|object $content): void
     {
         self::$content = \is_object($content) ? (array) $content : $content;
 
@@ -41,7 +44,7 @@ final class JwtToken
         }
     }
 
-    public static function getContent()
+    public static function getContent(): object|array
     {
         return self::$content;
     }
